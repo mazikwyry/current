@@ -1,0 +1,232 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "properties": {
+    "0": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "1": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "2": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "3": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "4": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "5": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "6": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "7": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "8": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "9": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "10": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "11": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "12": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "13": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "14": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "15": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "16": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "17": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "18": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "19": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "20": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "21": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "22": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "23": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    },
+    "24": { 
+    	"type": "object",
+    	"$schema": "http://json-schema.org/draft-04/schema",
+    	"properties": {
+    		"usage": {"type": "number"},
+    		"state": {"type": "string"}
+    	},
+    	"required": ["usage", "state"] 
+    }
+  },
+  "required": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"]
+}
