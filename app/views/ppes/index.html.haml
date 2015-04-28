@@ -1,0 +1,5 @@
+= form_tag '/ppes/upload_usage', { :multipart => true } do
+  %p
+    = file_field_tag 'file'
+  %p
+    = submit_tag "Wczytaj"

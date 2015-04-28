@@ -15,4 +15,13 @@ class Ppe < ActiveRecord::Base
 		end
 	end
 
+	def self.new_ppes content
+		usages = JSON.parse(content)
+		new_ppes = []
+		usages.each do |u|
+			new_ppes << u['ppe'] unless Ppe.exists?(code: u['ppe'])
+		end
+		new_ppes.present? ? new_ppes : false
+	end
+
 end
