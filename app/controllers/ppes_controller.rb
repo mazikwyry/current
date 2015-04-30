@@ -11,6 +11,7 @@ end
 class PpesController < ApplicationController
 
 	def index
+		@ppes = Ppe.all
 	end
 
 	def upload_usage
@@ -18,11 +19,11 @@ class PpesController < ApplicationController
 		content = params[:file].read
 		redirect_to :back unless content.is_json?
 		if @new_ppes = Ppe.new_ppes(content)
-			File.open(Rails.root.join('tmp', 'tmp.json'), "wb") { |f| f.write(params[:file].read) }
+			File.open(Rails.root.join('tmp', 'tmp.json'), "wb") { |f| f.write(content) }
 			render 'confirm'
 		else
 			Ppe.parse_usages(content)
-			render 'index'
+			redirect_to ppes_path
 		end
 	end
 
@@ -31,7 +32,7 @@ class PpesController < ApplicationController
 		Ppe.parse_usages(file.read)
 		file.close
 		File.delete(Rails.root.join('tmp', 'tmp.json'))
-		render 'index'
+		redirect_to ppes_path
 	end
 
 end

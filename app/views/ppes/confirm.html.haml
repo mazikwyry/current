@@ -1,0 +1,9 @@
+W pliku wykryto nowe PPE:
+
+%ul
+	- @new_ppes.each do |ppe|
+		%li= ppe
+
+
+= link_to "Potwierdź", confirm_new_ppes_ppes_path 
+= link_to "Wgraj ponownie", ppes_path 

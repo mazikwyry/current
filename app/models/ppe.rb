@@ -1,5 +1,12 @@
 class Ppe < ActiveRecord::Base
 
+	has_many :hourly_current_usages
+	has_many :area_current_usages
+
+	def usages
+		usage_type == 'hourly' ? hourly_current_usages : area_current_usages
+	end
+
 	def self.parse_usages json
 		usages = JSON.parse(json)
 		bad_types = []

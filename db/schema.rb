@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150428210524) do
 
   create_table "ppes", force: :cascade do |t|
     t.string   "code"
-    t.string   "type"
+    t.string   "usage_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

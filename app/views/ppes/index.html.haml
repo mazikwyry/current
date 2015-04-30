@@ -3,3 +3,9 @@
     = file_field_tag 'file'
   %p
     = submit_tag "Wczytaj"
+
+
+- @ppes.each do |ppe|
+  %h1= ppe.code
+  - ppe.usages.each do |usage|
+    %li= usage.date
