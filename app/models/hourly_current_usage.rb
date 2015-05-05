@@ -13,7 +13,20 @@ class HourlyCurrentUsage < ActiveRecord::Base
 		hourly = find_or_initialize_by(ppe_id: ppe.id, date: usage['date'])
 		hourly.hourly_usage = usage['hourlyUsage']
 		hourly.save
+		hourly.sum_daily_usage
 		hourly
+	end
+
+	def sum_daily_usage
+		sum = 0
+		bad_states = []
+		hourly_usage.each do |hour, usage|
+			sum += usage['usage']
+			bad_states << usage['state'] unless usage['state'] == '+' 
+		end
+		self.daily_usage = sum
+		self.daily_state = (bad_states.present? && bad_states.uniq.join(',')) || '+'
+		self.save
 	end
 
 end

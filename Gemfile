@@ -35,6 +35,7 @@ group :development, :test do
 	gem 'binding_of_caller'
 end
 
+gem 'bundler', '>= 1.8.4'
 gem 'haml', '~> 4.0.5'
 gem 'pry', '~> 0.9.12.6'
 gem 'devise'
@@ -43,3 +44,8 @@ gem 'jquery-fileupload-rails', '~> 0.4.1'
 gem 'remotipart', '~> 1.2.1'
 gem 'annotate', '~> 2.6.5'
 gem 'activerecord_json_validator'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap-sass'
+  gem 'rails-assets-bootstrap-material-design'
+end

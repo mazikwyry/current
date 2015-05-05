@@ -4,6 +4,8 @@ class CreateHourlyCurrentUsages < ActiveRecord::Migration
     	t.integer :ppe_id
     	t.date :date
     	t.json :hourly_usage
+    	t.decimal :daily_usage
+    	t.string :daily_state
       t.timestamps null: false
     end
   end

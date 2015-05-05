@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %title Current
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-material-red.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-responsive-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand.active{:href => "javascript:void(0)"} CurrentApp
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %a{:href => "javascript:void(0)"} + Wgraj nowy plik
+        
+    .container
+      = yield

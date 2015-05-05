@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20150428210524) do
     t.integer  "ppe_id"
     t.date     "date"
     t.json     "hourly_usage"
+    t.decimal  "daily_usage"
+    t.string   "daily_state"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
