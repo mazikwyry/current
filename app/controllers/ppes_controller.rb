@@ -35,4 +35,16 @@ class PpesController < ApplicationController
 		redirect_to ppes_path
 	end
 
+	def usage
+		@ppe = Ppe.find(usage_params[:id])
+		redirect_to ppes_path, alert: "Wprowadź wszytkie potrzebne atrybuty dla raportu" and return unless @ppe && usage_params[:start_date] && usage_params[:end_date]
+		@usages = @ppe.get_usage(usage_params[:start_date], usage_params[:end_date])
+	end
+
+	private
+
+	def usage_params
+    params.require(:ppe).permit(:id, :start_date, :end_date)
+  end
+
 end

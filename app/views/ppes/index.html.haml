@@ -19,23 +19,23 @@
 .panel.panel-default
   .panel-body
     %h1 Zużycie
-    = form_tag '/ppes/upload_usage', { :multipart => true, class: 'form-horizontal' } do
+    = form_for Ppe.new, url: '/ppes/usage' do |f|
       .row
         .col-lg-4
           .form-group
             %label.col-lg-2.control-label{:for => "select"} PPE
             .col-lg-10
-              = select_tag 'ppe', options_from_collection_for_select(@ppes, "id", "code"), id:'select', class: 'form-control'
+              = f.select :id, options_from_collection_for_select(@ppes, "id", "code"), {}, id:'select', class: 'form-control'
         .col-lg-3
           .form-group
             %label.col-lg-4.control-label Początek
             .col-lg-8
-              %input#inputEmail.form-control{:placeholder => "Data początkowa", :type => "date"}/
+              = f.date_field :start_date, class: 'form-control', placeholder: "Data początkowa"
         .col-lg-3
           .form-group
             %label.col-lg-4.control-label Koniec
             .col-lg-8
-              %input#inputEmail.form-control{:placeholder => "Data końcowa", :type => "date"}/
+              = f.date_field :end_date, class: 'form-control', placeholder: "Data końcowa"
         .col-lg-2
           %button.btn.btn-primary{:type => "submit"}
             Policz

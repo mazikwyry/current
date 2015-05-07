@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         get 'index'
         post 'upload_usage'
         get 'confirm_new_ppes'
+        post 'usage'
       end
     end
 
