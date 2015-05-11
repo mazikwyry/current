@@ -7,7 +7,7 @@ class Ppe < ActiveRecord::Base
 	has_many :area_current_usages
 
 	def usages
-		usage_type == 'hourly' ? hourly_current_usages : area_current_usages
+		usage_type == 'hourly' ? hourly_current_usages.order('date ASC') : area_current_usages.order('date ASC')
 	end
 
 	def self.parse_usages json
@@ -36,13 +36,59 @@ class Ppe < ActiveRecord::Base
 
 	def get_usage start_date, end_date
 		case usage_type
+		return false if start_date >= end_date
 		when 'hourly'
 			range_usages = self.usages.where("date >= :start_date AND date <= :end_date", :start_date => start_date, :end_date => end_date)
 			sum = range_usages.sum(:daily_usage)
 			states = range_usages.map{|u| u.daily_state}.join(',').split(',').uniq.join(',')
 			return {usages: range_usages, sum: sum, states: states, start_date: start_date, end_date: end_date}
 		when 'area'
-			
+			first_reading, second_reading = self.usages.limit(2), 
+			last_reading, prelast_reading = self.usages.order('date DESC').limit(2)
+
+			# Check if start_date or end_date is out of readings range
+			start_reading = first_reading if first_reading.date >= start_date
+			finish_reading = second_reading if first_reading.date >= end_date	
+			start_reading = prelast_reading if last_reading.date <= start_date
+			finish_reading = last_reading if last_reading.date <= end_date
+
+			unless start_reading
+				start_date_neighbors = [
+					self.usages.where("date >= :start_date", :start_date => start_date).limit(1), 
+					self.usages.where("date <= :start_date", :start_date => start_date).limit(1)
+				]
+				days_differences_start = start_date_neighbors.map{|r| (r.date && (start_date - r.date).to_i) || 99999}
+				start_reading_index = days_differences_start.each_with_index.min.last
+				start_reading = start_date_neighbors[start_reading_index]
+			end
+			unless finish_reading
+				end_date_neighbors = [
+					self.usages.where("date >= :end_date", :end_date => end_date).limit(1), 
+					self.usages.where("date <= :end_date", :end_date => end_date).limit(1)
+				]
+				days_differences_finish = end_date_neighbors.map{|r| (r.date && (end_date - r.date).to_i) || 99999}
+				finish_reading_index = days_differences_finish.each_with_index.min.last
+				finish_reading = end_date_neighbors[finish_reading_index]
+			end
+			if start_reading == finish_reading
+				alt_start_reading = start_date_neighbors[start_reading_index == 0 ? 1 : 0] if start_date_neighbors.present?
+				alt_finish_reading = end_date_neighbors[finish_reading_index == 0 ? 1 : 0] if end_date_neighbors.present?
+				if ((start_date - alt_start_reading.date).to_i <= (end_date - alt_finish_reading.date).to_i)
+					start_reading = alt_start_reading
+				else
+					finish_reading = alt_finish_reading
+				end
+			end
+
+			usage = (finish_reading.usage - start_reading.usage)/(finish_reading.date - start.date).to_i*(end_date-start_date).to_i
+			state = [finish_reading.state, start_reading.state].uniq.join(',')
+			return {
+				usages: [start_reading, finish_reading],
+				usage: usage,
+				state: state,
+				start_date: start_date, 
+				end_date: end_date
+			}
 		end
 	end
 
