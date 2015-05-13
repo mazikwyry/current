@@ -1,0 +1,34 @@
+.panel.panel-default
+  .panel-body
+    %h1 Sumaryczne zużycie
+    
+    %table
+      %tr
+        %th PPE
+        %td= @ppe.code
+      %tr
+        %th Data początkowa
+        %td= @usages[:start_date]
+      %tr
+        %th Data końcowa
+        %td= @usages[:end_date]
+      %tr
+        %th Zużycie
+        %td= @usages[:usage].round(0)
+      %tr
+        %th Status pomiarów
+        %td= @usages[:state]
+
+.panel.panel-default
+  .panel-body
+    %h1 Odczyty użyte do obliczeń
+    %table
+      %tr
+        %th Data
+        %th Suma
+        %th Status
+      - @usages[:usages].each do |u|
+        %tr
+          %td= u.date
+          %td= u.usage.round(0)
+          %td= u.state
