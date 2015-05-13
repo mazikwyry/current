@@ -36,6 +36,7 @@ class PpesController < ApplicationController
 	end
 
 	def usage
+		@ppes = Ppe.all
 		@ppe = Ppe.find(usage_params[:id])
 		redirect_to ppes_path, alert: "Wprowadź wszytkie potrzebne atrybuty dla raportu" and return unless @ppe && usage_params[:start_date] && usage_params[:end_date]
 		@usages = @ppe.get_usage(usage_params[:start_date], usage_params[:end_date])

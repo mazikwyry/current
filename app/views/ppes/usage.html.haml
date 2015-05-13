@@ -1,39 +1,4 @@
-.panel.panel-default
-  .panel-body
-    %h1 Sumaryczne zużycie
-    
-    %table
-      %tr
-        %th PPE
-        %td= @ppe.code
-      %tr
-        %th Data początkowa
-        %td= @usages[:start_date]
-      %tr
-        %th Data końcowa
-        %td= @usages[:end_date]
-      %tr
-        %th Zużycie
-        %td= @usages[:sum].round(0)
-      %tr
-        %th Status pomiarów
-        %td= @usages[:states]
-
-.panel.panel-default
-  .panel-body
-    %h1 Szczegółowe dane
-    %table
-      %tr
-        %th Data
-        %th Suma
-        %th Status
-        - 24.times do |h|
-          %th=h
-      - @usages[:usages].each do |u|
-        %tr
-          %td= u.date
-          %td= u.daily_usage.round(0)
-          %td= u.daily_state
-          -u.hourly_usage.each do |hour, usage|
-            %td= "#{usage['usage']} #{usage['state']}"
-
+- if @ppe.usage_type == 'hourly'
+  = render 'ppes/hourly_report'
+-else
+  = render 'ppes/area_report' 

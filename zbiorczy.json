@@ -117,16 +117,25 @@
 {
 	"type": "area",
 	"ppe": "165165165",
-	"date": "2015-02-20",
-	"usage": 1256.245,
-	"state": "R",
+	"date": "2015-03-21",
+	"usage": 1246.245,
+	"state": "S",
 	"multiplicand": 1,
 	"area": 2
 },
 {
 	"type": "area",
 	"ppe": "165165165",
-	"date": "2015-02-21",
+	"date": "2015-04-21",
+	"usage": 1246.245,
+	"state": "S",
+	"multiplicand": 1,
+	"area": 2
+},
+{
+	"type": "area",
+	"ppe": "165165165",
+	"date": "2015-05-21",
 	"usage": 1246.245,
 	"state": "S",
 	"multiplicand": 1,
