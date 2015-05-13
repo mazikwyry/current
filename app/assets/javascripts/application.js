@@ -15,4 +15,15 @@
 //= require turbolinks
 //= require bootstrap-sass
 //= require bootstrap-material-design
+//= require bootstrap-datepicker
 //= require_tree .
+
+$(function() {
+	$('#start_date, #end_date').datepicker({
+    startView: 1,
+    format: "yyyy-mm-dd",
+    orientation: "top left",
+    autoclose:true,
+    language: "pl"
+	});
+});

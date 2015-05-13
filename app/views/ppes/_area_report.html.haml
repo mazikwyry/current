@@ -2,7 +2,7 @@
   .panel-body
     %h1 Sumaryczne zużycie
     
-    %table
+    %table.table.table-striped.table-hover
       %tr
         %th PPE
         %td= @ppe.code
@@ -12,9 +12,11 @@
       %tr
         %th Data końcowa
         %td= @usages[:end_date]
-      %tr
-        %th Zużycie
-        %td= @usages[:usage].round(0)
+      %tr.success
+        %th 
+          %h3 Zużycie
+        %td
+          %h3= @usages[:usage].round(0)
       %tr
         %th Status pomiarów
         %td= @usages[:state]
@@ -22,7 +24,7 @@
 .panel.panel-default
   .panel-body
     %h1 Odczyty użyte do obliczeń
-    %table
+    %table.table.table-striped.table-hover
       %tr
         %th Data
         %th Suma

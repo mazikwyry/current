@@ -17,27 +17,9 @@
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav.navbar-right
             %li
-              %a{:href => "javascript:void(0)"} + Wgraj nowy plik
+              %a{"data-target" => "#complete-dialog", "data-toggle" => "modal", href: '#'} + Wgraj nowy plik
         
     .container
-      .panel.panel-default
-        .panel-body
-          %h1 Wgraj odczyty
-          = form_tag '/ppes/upload_usage', { :multipart => true, class: 'form-horizontal' } do
-            .row
-              .col-lg-10
-                %label Plik z odczytami
-                .form-control-wrapper.fileinput
-                  %input.form-control.empty{:readonly => "", :type => "text"}
-                    %input#inputFile{:multiple => "", :type => "file", :name => 'file'}
-                      .floating-label Wybierz plik...
-                      %span.material-input
-              .col-lg-2
-                %button.btn.btn-primary{:type => "submit"}
-                  Wgraj
-                  .ripple-wrapper
-
-
       .panel.panel-default
         .panel-body
           %h1 Zużycie
@@ -52,14 +34,35 @@
                 .form-group
                   %label.col-lg-4.control-label Początek
                   .col-lg-8
-                    = f.date_field :start_date, class: 'form-control', placeholder: "Data początkowa"
+                    = f.text_field :start_date, class: 'form-control', placeholder: "Data początkowa", id: 'start_date'
               .col-lg-3
                 .form-group
                   %label.col-lg-4.control-label Koniec
                   .col-lg-8
-                    = f.date_field :end_date, class: 'form-control', placeholder: "Data końcowa"
+                    = f.text_field :end_date, class: 'form-control', placeholder: "Data końcowa", id: 'end_date'
               .col-lg-2
                 %button.btn.btn-primary{:type => "submit"}
                   Policz
                   .ripple-wrapper
       = yield
+
+    #complete-dialog.modal.fade{:tabindex => "-1"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+            %h4.modal-title Wgraj nowy plik
+          = form_tag '/ppes/upload_usage', { :multipart => true, class: 'form-horizontal' } do
+            .modal-body
+              .row
+                .col-lg-12
+                  %label Plik z odczytami
+                  .form-control-wrapper.fileinput
+                    %input.form-control.empty{:readonly => "", :type => "text"}
+                      %input#inputFile{:multiple => "", :type => "file", :name => 'file'}
+                        .floating-label Wybierz plik...
+                        %span.material-input
+            .modal-footer
+              %button.btn.btn-primary{:type => "submit"}
+                Wgraj
+                .ripple-wrapper

@@ -2,7 +2,7 @@
   .panel-body
     %h1 Sumaryczne zużycie
     
-    %table
+    %table.table.table-striped.table-hover
       %tr
         %th PPE
         %td= @ppe.code
@@ -12,9 +12,11 @@
       %tr
         %th Data końcowa
         %td= @usages[:end_date]
-      %tr
-        %th Zużycie
-        %td= @usages[:sum].round(0)
+      %tr.success
+        %th 
+          %h3 Zużycie
+        %td
+          %h3= @usages[:sum].round(0)
       %tr
         %th Status pomiarów
         %td= @usages[:states]
@@ -22,18 +24,37 @@
 .panel.panel-default
   .panel-body
     %h1 Szczegółowe dane
-    %table
+    %table.table.table-striped.table-hover
       %tr
         %th Data
         %th Suma
         %th Status
-        - 24.times do |h|
-          %th=h
+        %th Godzinowo
       - @usages[:usages].each do |u|
         %tr
           %td= u.date
           %td= u.daily_usage.round(0)
           %td= u.daily_state
-          -u.hourly_usage.each do |hour, usage|
-            %td= "#{usage['usage']} #{usage['state']}"
-
+          %td
+            %table.table.table-striped
+              %thead
+                %tr
+                  - 8.times do |h|
+                    %th=h
+              %tr
+                -Hash[u.hourly_usage.to_a[0..7]].each do |hour, usage|
+                  %td= "#{usage['usage']} (#{usage['state']})"
+              %thead
+                %tr
+                  - 8.times do |h|
+                    %th=(h+8)
+              %tr
+                -Hash[u.hourly_usage.to_a[8..15]].each do |hour, usage|
+                  %td= "#{usage['usage']} (#{usage['state']})"
+              %thead
+                %tr
+                  - 8.times do |h|
+                    %th=(h+16)              
+              %tr
+                -Hash[u.hourly_usage.to_a[16..23]].each do |hour, usage|
+                  %td= "#{usage['usage']} (#{usage['state']})"

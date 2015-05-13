@@ -48,5 +48,5 @@ gem 'activerecord_json_validator'
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
   gem 'rails-assets-bootstrap-material-design'
-  # gem 'rails-assets-bootstrap-datepicker'
+  gem 'rails-assets-bootstrap-datepicker'
 end
