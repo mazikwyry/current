@@ -52,7 +52,7 @@ class Ppe < ActiveRecord::Base
 			# Check if start_date or end_date is out of readings range
 			start_reading = first_reading if first_reading.date >= start_date
 			finish_reading = second_reading if first_reading.date >= end_date	
-			
+
 			start_reading = prelast_reading if last_reading.date <= start_date
 			finish_reading = last_reading if last_reading.date <= end_date
 
@@ -61,7 +61,7 @@ class Ppe < ActiveRecord::Base
 					self.usages.where("date >= :start_date", :start_date => start_date).limit(1).first, 
 					self.area_current_usages.where("date <= :start_date", :start_date => start_date).order('date DESC').limit(1).first
 				]
-				days_differences_start = start_date_neighbors.map{|r| (r.date && (start_date - r.date).to_i) || 99999}
+				days_differences_start = start_date_neighbors.map{|r| (r.date && (start_date - r.date).to_i.abs) || 99999}
 				start_reading_index = days_differences_start.each_with_index.min.last
 				start_reading = start_date_neighbors[start_reading_index]
 			end
@@ -70,21 +70,21 @@ class Ppe < ActiveRecord::Base
 					self.usages.where("date >= :end_date", :end_date => end_date).limit(1).first, 
 					self.area_current_usages.where("date <= :end_date", :end_date => end_date).order('date DESC').limit(1).first
 				]
-				days_differences_finish = end_date_neighbors.map{|r| (r.date && (end_date - r.date).to_i) || 99999}
+				days_differences_finish = end_date_neighbors.map{|r| (r.date && (end_date - r.date).to_i.abs) || 99999}
 				finish_reading_index = days_differences_finish.each_with_index.min.last
 				finish_reading = end_date_neighbors[finish_reading_index]
 			end
 			if start_reading == finish_reading
 				alt_start_reading = start_date_neighbors[start_reading_index == 0 ? 1 : 0] if start_date_neighbors.present?
 				alt_finish_reading = end_date_neighbors[finish_reading_index == 0 ? 1 : 0] if end_date_neighbors.present?
-				if alt_start_reading && (alt_finish_reading.nil? || ((start_date - alt_start_reading.date).to_i <= (end_date - alt_finish_reading.date).to_i))
+				if alt_start_reading && (alt_finish_reading.nil? || ((start_date - alt_start_reading.date).to_i.abs <= (end_date - alt_finish_reading.date).to_i.abs))
 					start_reading = alt_start_reading
 				elsif alt_finish_reading
 					finish_reading = alt_finish_reading
 				end
 			end
 
-			usage = (finish_reading.usage - start_reading.usage)/(finish_reading.date - start_reading.date).to_i*(end_date-start_date).to_i
+			usage = (finish_reading.usage - start_reading.usage)/(finish_reading.date - start_reading.date).to_i.abs*(end_date-start_date).to_i.abs
 			state = [finish_reading.state, start_reading.state].uniq.join(',')
 			return {
 				usages: [start_reading, finish_reading],
