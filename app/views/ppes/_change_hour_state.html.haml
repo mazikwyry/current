@@ -1,0 +1,15 @@
+.btn-group
+  %a{class: "btn dropdown-toggle #{state=='+' ? 'btn-success' : 'btn-warning' }", "aria-expanded" => "false", "data-target" => "#", "data-toggle" => "dropdown"}
+    = state
+    %span.caret
+    .ripple-wrapper
+  %ul.dropdown-menu
+    - unless state=='+'
+      %li
+        =link_to 'Zmień na +', "/ppes/change_hour_state?usage_id=#{usage.id}&hour=#{h}&state=%2B", remote: true
+    - unless state=='-'
+      %li
+        =link_to 'Zmień na -', "/ppes/change_hour_state?usage_id=#{usage.id}&hour=#{h}&state=-", remote: true
+    - unless state=='*'
+      %li
+        =link_to 'Zmień na *', "/ppes/change_hour_state?usage_id=#{usage.id}&hour=#{h}&state=*", remote: true

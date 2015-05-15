@@ -177,7 +177,11 @@ GEM
       rails-assets-jquery (~> 2.1.1)
     rails-assets-bootstrap-sass (3.3.4)
       rails-assets-jquery (>= 1.9.0)
+    rails-assets-bootstrap-select (1.6.5)
+      rails-assets-jquery (>= 1.8)
     rails-assets-jquery (2.1.4)
+    rails-assets-toastr (2.1.1)
+      rails-assets-jquery (>= 1.6.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.6)
@@ -262,6 +266,8 @@ DEPENDENCIES
   rails-assets-bootstrap-datepicker!
   rails-assets-bootstrap-material-design!
   rails-assets-bootstrap-sass!
+  rails-assets-bootstrap-select!
+  rails-assets-toastr!
   remotipart (~> 1.2.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

@@ -17,10 +17,16 @@ Rails.application.routes.draw do
 
     resources :ppes do
       collection do
-        get 'index'
-        post 'upload_usage'
-        get 'confirm_new_ppes'
-        post 'usage'
+        get :index
+        post :upload_usage
+        get :confirm_new_ppes
+        post :usage
+        post :usages_csv_all
+        get :change_hour_state
+        get :change_daily_state
+      end
+      member do
+        get :usages_csv
       end
     end
 

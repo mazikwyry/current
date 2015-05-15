@@ -1,0 +1,32 @@
+%td= u.date
+%td= u.daily_usage.round(3)
+%td= render('change_daily_state', usage: u)
+%td
+  %table.table.table-striped
+    %thead
+      %tr
+        - 8.times do |h|
+          %th=h
+    %tr
+      -Hash[u.hourly_usage.to_a[0..7]].each do |hour, usage|
+        %td= "#{usage['usage']} (#{render('change_hour_state', state: usage['state'], h: hour, usage: u)})".html_safe
+    %thead
+      %tr
+        - 8.times do |h|
+          %th=(h+8)
+    %tr
+      -Hash[u.hourly_usage.to_a[8..15]].each do |hour, usage|
+        %td= "#{usage['usage']} (#{render('change_hour_state', state: usage['state'], h: hour, usage: u)})".html_safe
+    %thead
+      %tr
+        - 8.times do |h|
+          %th=(h+16)              
+    %tr
+      -Hash[u.hourly_usage.to_a[16..23]].each do |hour, usage|
+        %td= "#{usage['usage']} (#{render('change_hour_state', state: usage['state'], h: hour, usage: u)})".html_safe
+    %thead
+      %tr
+        %td 24*
+    %tr
+      -Hash[u.hourly_usage.to_a[24]].each do |hour, usage|
+        %td= "#{usage['usage']} (#{render('change_hour_state', state: usage['state'], h: hour, usage: u)})".html_safe

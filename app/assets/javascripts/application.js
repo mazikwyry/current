@@ -16,6 +16,8 @@
 //= require bootstrap-sass
 //= require bootstrap-material-design
 //= require bootstrap-datepicker
+//= require bootstrap-select
+//= require toastr
 //= require_tree .
 
 $(function() {
@@ -26,4 +28,6 @@ $(function() {
     autoclose:true,
     language: "pl"
 	});
+	$('.selectpicker').selectpicker();
+	$('[data-toggle="tooltip"]').tooltip();
 });

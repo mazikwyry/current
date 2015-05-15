@@ -1,0 +1,15 @@
+.btn-group
+  %a{class: "btn dropdown-toggle #{usage.daily_state=='+' ? 'btn-success' : 'btn-warning' }", "aria-expanded" => "false", "data-target" => "#", "data-toggle" => "dropdown"}
+    = usage.daily_state
+    %span.caret
+    .ripple-wrapper
+  %ul.dropdown-menu
+    - unless usage.daily_state=='+'
+      %li
+        =link_to 'Zmień wszytko na +', "/ppes/change_daily_state?usage_id=#{usage.id}&state=%2B", remote: true
+    - unless usage.daily_state=='-'
+      %li
+        =link_to 'Zmień wszytko na -', "/ppes/change_daily_state?usage_id=#{usage.id}&state=-", remote: true
+    - unless usage.daily_state=='*'
+      %li
+        =link_to 'Zmień wszytko na *', "/ppes/change_daily_state?usage_id=#{usage.id}&state=*", remote: true

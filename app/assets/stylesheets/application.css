@@ -13,6 +13,8 @@
  *= require bootstrap-sass
  *= require bootstrap-material-design
  *= require bootstrap-datepicker
+ *= require bootstrap-select
+ *= require toastr
  *= require_tree .
  *= require_self
  */

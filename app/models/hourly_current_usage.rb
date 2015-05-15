@@ -29,4 +29,16 @@ class HourlyCurrentUsage < ActiveRecord::Base
 		self.save
 	end
 
+	def change_hour_state hour, state
+		hourly_usage[hour]['state'] = state
+		sum_daily_usage
+	end
+
+	def change_daily_state state
+		hourly_usage.each do |hour, usage|
+			usage['state'] = state
+		end
+		sum_daily_usage
+	end
+
 end

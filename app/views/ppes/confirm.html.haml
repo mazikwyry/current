@@ -1,9 +1,12 @@
-W pliku wykryto nowe PPE:
+.panel.panel-default
+  .panel-body
+    %h1 
+      W pliku wykryto nowe PPE
 
-%ul
-	- @new_ppes.each do |ppe|
-		%li= ppe
+    %ul
+      - @new_ppes.each do |ppe|
+        %li= ppe
 
-
-= link_to "Potwierdź", confirm_new_ppes_ppes_path 
-= link_to "Wgraj ponownie", ppes_path 
+    .text-right
+      = link_to "Anuluj", ppes_path, class: 'btn btn-flat btn-danger'
+      = link_to "Potwierdź", confirm_new_ppes_ppes_path , class: 'btn btn-primary'

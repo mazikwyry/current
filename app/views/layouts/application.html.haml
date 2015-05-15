@@ -18,32 +18,78 @@
           %ul.nav.navbar-nav.navbar-right
             %li
               %a{"data-target" => "#complete-dialog", "data-toggle" => "modal", href: '#'} + Wgraj nowy plik
-        
+    
+    - if flash[:notice]
+      .alert.alert-dismissable.alert-success
+        %button.close{"data-dismiss" => "alert", :type => "button"} ×
+        %h4 Błąd!
+        %p
+          = flash[:notice]
+    - if flash[:error]
+      .alert.alert-dismissable.alert-danger
+        %button.close{"data-dismiss" => "alert", :type => "button"} ×
+        %h4 Sukces!
+        %p
+          = flash[:error]
+    - if flash[:alert]
+      .alert.alert-dismissable.alert-warning
+        %button.close{"data-dismiss" => "alert", :type => "button"} ×
+        %h4 Uwaga!
+        %p
+          = flash[:alert]
+
     .container
       .panel.panel-default
         .panel-body
-          %h1 Zużycie
-          = form_for Ppe.new, url: '/ppes/usage' do |f|
-            .row
-              .col-lg-4
-                .form-group
-                  %label.col-lg-2.control-label{:for => "select"} PPE
-                  .col-lg-10
-                    = f.select :id, options_from_collection_for_select(Ppe.all, "id", "code"), {}, id:'select', class: 'form-control'
-              .col-lg-3
-                .form-group
-                  %label.col-lg-4.control-label Początek
-                  .col-lg-8
-                    = f.text_field :start_date, class: 'form-control', placeholder: "Data początkowa", id: 'start_date'
-              .col-lg-3
-                .form-group
-                  %label.col-lg-4.control-label Koniec
-                  .col-lg-8
-                    = f.text_field :end_date, class: 'form-control', placeholder: "Data końcowa", id: 'end_date'
-              .col-lg-2
-                %button.btn.btn-primary{:type => "submit"}
-                  Policz
-                  .ripple-wrapper
+          %h1 Raporty
+          %br
+          %ul.nav.nav-tabs{:style => "margin-bottom: 15px;"}
+            %li.active
+              %a{"data-toggle" => "tab", :href => "#home"} Raport dla PPE
+            %li
+              %a{"data-toggle" => "tab", :href => "#profile"} Raport CSV zbiorczy
+          #myTabContent.tab-content
+            #home.tab-pane.fade.active.in
+              = form_for Ppe.new, url: '/ppes/usage' do |f|
+                .row
+                  .col-lg-4
+                    .form-group
+                      %label.col-lg-2.control-label{:for => "select"} PPE
+                      .col-lg-10
+                        = f.select :id, options_from_collection_for_select(Ppe.all, "id", "code"), {}, id:'select', class: 'form-control selectpicker', 'data-live-search' => true
+                  .col-lg-3
+                    .form-group
+                      %label.col-lg-4.control-label Początek
+                      .col-lg-8
+                        = f.text_field :start_date, class: 'form-control', placeholder: "Data początkowa", id: 'start_date'
+                  .col-lg-3
+                    .form-group
+                      %label.col-lg-4.control-label Koniec
+                      .col-lg-8
+                        = f.text_field :end_date, class: 'form-control', placeholder: "Data końcowa", id: 'end_date'
+                  .col-lg-2
+                    %button.btn.btn-primary{:type => "submit"}
+                      Policz
+                      .ripple-wrapper
+            #profile.tab-pane.fade
+              = form_for Ppe.new, url: '/ppes/usages_csv_all.csv' do |f|
+                .row
+                  .col-lg-5
+                    .form-group
+                      %label.col-lg-4.control-label Początek
+                      .col-lg-8
+                        = f.text_field :start_date, class: 'form-control', placeholder: "Data początkowa", id: 'start_date'
+                  .col-lg-5
+                    .form-group
+                      %label.col-lg-4.control-label Koniec
+                      .col-lg-8
+                        = f.text_field :end_date, class: 'form-control', placeholder: "Data końcowa", id: 'end_date'
+                  .col-lg-2
+                    %button.btn.btn-primary{:type => "submit"}
+                      Eksport CSV
+                      .ripple-wrapper 
+                     
+
       = yield
 
     #complete-dialog.modal.fade{:tabindex => "-1"}

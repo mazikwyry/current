@@ -14,7 +14,7 @@
         %td= @usages[:end_date]
       %tr.success
         %th 
-          %h3 Zużycie
+          %h3 Zużycie(kWh)
         %td
           %h3= @usages[:usage].round(0)
       %tr
@@ -27,10 +27,12 @@
     %table.table.table-striped.table-hover
       %tr
         %th Data
-        %th Suma
+        %th Suma(kWh)
         %th Status
       - @usages[:usages].each do |u|
         %tr
           %td= u.date
           %td= u.usage.round(0)
           %td= u.state
+
+= render 'ppes/export_csv_button'

@@ -31,7 +31,7 @@ class Ppe < ActiveRecord::Base
 		usages.each do |u|
 			new_ppes << u['ppe'] unless Ppe.exists?(code: u['ppe'])
 		end
-		new_ppes.present? ? new_ppes : false
+		new_ppes.present? ? new_ppes.uniq : false
 	end
 
 	def get_usage start_date, end_date
@@ -83,7 +83,6 @@ class Ppe < ActiveRecord::Base
 					finish_reading = alt_finish_reading
 				end
 			end
-
 			usage = (finish_reading.usage - start_reading.usage)/(finish_reading.date - start_reading.date).to_i.abs*(end_date-start_date).to_i.abs
 			state = [finish_reading.state, start_reading.state].uniq.join(',')
 			return {
@@ -95,5 +94,25 @@ class Ppe < ActiveRecord::Base
 			}
 		end
 	end
+
+  def get_usage_in_csv_row start_date, end_date
+  	usage = get_usage(start_date, end_date)
+		case usage_type
+			when 'hourly'
+				[self.code, start_date.to_s, end_date.to_s, usage[:sum].round(3).to_s, usage[:states].to_s]  
+			when 'area'
+				[self.code, start_date.to_s, end_date.to_s, usage[:usage].round(3).to_s, usage[:state].to_s, usage[:usages][1].usage] 
+		end
+  end
+
+
+  def self.generate_csv ppes, start_date, end_date
+  	CSV.generate do |csv|
+      csv << ['PPE', 'Data Początkowa', 'Data Końcowa', 'Zużycie', 'Status', 'Ostatni Pomiar']
+      ppes.each do |ppe|
+      	csv << ppe.get_usage_in_csv_row(start_date, end_date)
+      end
+    end
+  end 
 
 end
