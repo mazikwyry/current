@@ -41,7 +41,10 @@ class Ppe < ActiveRecord::Base
 			range_usages = self.usages.where("date >= :start_date AND date <= :end_date", :start_date => start_date, :end_date => end_date)
 			sum = range_usages.sum(:daily_usage)
 			states = range_usages.map{|u| u.daily_state}.join(',').split(',').uniq.join(',')
-			return {usages: range_usages, sum: sum, states: states, start_date: start_date, end_date: end_date}
+			usages_dates = range_usages.map{|u| u.date}
+			date_range = (Date.parse(start_date)..Date.parse(end_date))
+			dates_without_usage = date_range.to_a - usages_dates
+			return {usages: range_usages, sum: sum, states: states, start_date: start_date, end_date: end_date, dates_without_usage: dates_without_usage}
 		when 'area'
 			start_date = Date.parse start_date
 			end_date = Date.parse end_date

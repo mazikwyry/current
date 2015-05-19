@@ -22,6 +22,18 @@
         %td
           %span{class: "label #{@usages[:states]=='+' ? 'label-success' : 'label-warning'}"}
             = @usages[:states]
+      %tr
+        %th Brakujące dni
+        %td
+          -if @usages[:dates_without_usage].present?
+            Brakuje odczytów z następujących dni: 
+            %br
+            -@usages[:dates_without_usage].each do |d|
+              %span.label.label-warning
+                = d
+          -else
+            %span.label.label-success
+              Wszystkie odczyty
 
 .panel.panel-default
   .panel-body
