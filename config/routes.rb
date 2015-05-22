@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         post :usages_csv_all
         get :change_hour_state
         get :change_daily_state
+        delete :destroy
       end
       member do
         get :usages_csv

@@ -71,6 +71,16 @@ class PpesController < ApplicationController
 		@usage.change_daily_state(params[:state])
 	end
 
+  def destroy
+    @usage = Ppe.find(usage_params[:id])
+    @usage.destroy
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: "Usunięto PPE #{@usage.code} wraz z danymi." }
+      format.json { head :ok }
+    end
+  end
+
 
 	private
 

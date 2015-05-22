@@ -13,22 +13,24 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand.active{:href => "javascript:void(0)"} CurrentApp
+          %a.navbar-brand.active{:href => root_path} CurrentApp
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav.navbar-right
+            %li
+              %a{"data-target" => "#delete-ppe-dialog", "data-toggle" => "modal", href: '#'} - Usuń PPE
             %li
               %a{"data-target" => "#complete-dialog", "data-toggle" => "modal", href: '#'} + Wgraj nowy plik
     
     - if flash[:notice]
       .alert.alert-dismissable.alert-success
         %button.close{"data-dismiss" => "alert", :type => "button"} ×
-        %h4 Błąd!
+        %h4 Sukces!
         %p
           = flash[:notice]
     - if flash[:error]
       .alert.alert-dismissable.alert-danger
         %button.close{"data-dismiss" => "alert", :type => "button"} ×
-        %h4 Sukces!
+        %h4 Błąd!
         %p
           = flash[:error]
     - if flash[:alert]
@@ -112,3 +114,21 @@
               %button.btn.btn-primary{:type => "submit"}
                 Wgraj
                 .ripple-wrapper
+
+    #delete-ppe-dialog.modal.fade{:tabindex => "-1"}
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+            %h4.modal-title Usuwanie PPE
+          %br
+          = form_for Ppe.new, { :multipart => true, class: 'form-horizontal', method: 'DELETE' } do |f|
+            .modal-body
+              .row
+                .col-lg-12
+                  .form-group
+                    %label.col-lg-2.control-label{:for => "select"} PPE
+                    .col-lg-10
+                      = f.select :id, options_from_collection_for_select(Ppe.all, "id", "code"), {}, id:'select', class: 'form-control selectpicker', 'data-live-search' => true
+            .modal-footer
+              = f.submit 'Usuń', data: {confirm: 'Czy jesteś pewien że chcesz usunąć ten PPE wraz z wszystkimi danymi?'}, class: 'input button btn btn-primary'

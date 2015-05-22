@@ -256,4 +256,32 @@
 			"state": "+"
 		}
 	}
-}]
+},
+{
+	"type": "range",
+	"ppe": "TESTRANGE",
+	"date_start": "2015-02-20",
+	"date_end": "2015-02-24",
+	"usage": 123.12,
+	"usage_type": "G",
+	"state": "+"
+},
+{
+	"type": "range",
+	"ppe": "TESTRANGE",
+	"date_start": "2015-02-25",
+	"date_end": "2015-02-28",
+	"usage": 1023.12,
+	"usage_type": "C",
+	"state": "-"
+},
+{
+	"type": "range",
+	"ppe": "TESTRANGE",
+	"date_start": "2015-02-28",
+	"date_end": "2015-03-05",
+	"usage": 0.3,
+	"usage_type": "G",
+	"state": "+"
+}
+]
