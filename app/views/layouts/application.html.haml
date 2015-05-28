@@ -58,17 +58,17 @@
                     .form-group
                       %label.col-lg-2.control-label{:for => "select"} PPE
                       .col-lg-10
-                        = f.select :id, options_from_collection_for_select(Ppe.all, "id", "code"), {}, id:'select', class: 'form-control selectpicker', 'data-live-search' => true
+                        = f.select :id, options_from_collection_for_select(Ppe.all, "id", "code", @ppe.try(:id)), {}, id:'select', class: 'form-control selectpicker', 'data-live-search' => true
                   .col-lg-3
                     .form-group
                       %label.col-lg-4.control-label Początek
                       .col-lg-8
-                        = f.text_field :start_date, class: 'form-control', placeholder: "Data początkowa", id: 'start_date'
+                        = f.text_field :start_date, class: 'form-control', placeholder: "Data początkowa", id: 'start_date', value: @usages && @usages[:start_date]
                   .col-lg-3
                     .form-group
                       %label.col-lg-4.control-label Koniec
                       .col-lg-8
-                        = f.text_field :end_date, class: 'form-control', placeholder: "Data końcowa", id: 'end_date'
+                        = f.text_field :end_date, class: 'form-control', placeholder: "Data końcowa", id: 'end_date', value: @usages && @usages[:end_date]
                   .col-lg-2
                     %button.btn.btn-primary{:type => "submit"}
                       Policz

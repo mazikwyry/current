@@ -96,7 +96,7 @@ class Ppe < ActiveRecord::Base
           finish_reading = alt_finish_reading
         end
       end
-      usage = (finish_reading.usage - start_reading.usage)/(finish_reading.date - start_reading.date).to_i.abs*(end_date-start_date).to_i.abs
+      usage = (finish_reading.usage - start_reading.usage)/(start_reading.date..finish_reading.date).count*(start_date..end_date).count
       
       usage_date_range = (start_reading.date..finish_reading.date)
       state = case 
