@@ -44,6 +44,7 @@ gem 'jquery-fileupload-rails', '~> 0.4.1'
 gem 'remotipart', '~> 1.2.1'
 gem 'annotate', '~> 2.6.5'
 gem 'activerecord_json_validator'
+gem 'puma'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
