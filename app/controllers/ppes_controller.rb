@@ -23,7 +23,7 @@ class PpesController < ApplicationController
 			render 'confirm'
 		else
 			Ppe.parse_usages(content)
-			redirect_to ppes_path
+			redirect_to ppes_path, notice: 'Odczyty zostały załadowane poprawnie.'
 		end
 	end
 
@@ -32,13 +32,15 @@ class PpesController < ApplicationController
 		Ppe.parse_usages(file.read)
 		file.close
 		File.delete(Rails.root.join('tmp', 'tmp.json'))
-		redirect_to ppes_path
+		redirect_to ppes_path, notice: 'Odczyty zostały załadowane poprawnie.'
 	end
 
 	def usage
 		@ppe = Ppe.find(usage_params[:id])
 		redirect_to ppes_path, alert: "Wprowadź wszytkie potrzebne atrybuty dla raportu" and return unless @ppe && usage_params[:start_date] && usage_params[:end_date]
 		@usages = @ppe.get_usage(usage_params[:start_date], usage_params[:end_date])
+		# binding.pry
+		redirect_to ppes_path, alert: @usages[:errors].to_s and return if @usages[:errors].present?
 	end
 
 	def usages_csv
@@ -53,6 +55,7 @@ class PpesController < ApplicationController
 	def usages_csv_all
 		@ppes = Ppe.all
 		redirect_to ppes_path, alert: "Wprowadź wszytkie potrzebne atrybuty dla raportu" and return unless usage_params[:start_date] && usage_params[:end_date]
+		redirect_to ppes_path, alert: "Data początkowa powinna być wcześniejsza niż końcowa" and return if usage_params[:start_date] >= usage_params[:end_date]
 		csv = Ppe.generate_csv(@ppes, usage_params[:start_date], usage_params[:end_date])
     respond_to do |format|
       format.csv { send_data csv, filename: "zuzycie_wszystkie_ppe_#{Date.today.to_s}.csv" }

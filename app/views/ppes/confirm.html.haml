@@ -1,11 +1,20 @@
 .panel.panel-default
   .panel-body
-    %h1 
-      W pliku wykryto nowe PPE
+    - if @new_ppes[:new].present?
+      %h1 
+        W pliku wykryto nowe PPE
 
-    %ul
-      - @new_ppes.each do |ppe|
-        %li= ppe
+      %ul
+        - @new_ppes[:new].each do |ppe|
+          %li= ppe
+    
+    - if @new_ppes[:wrong].present?
+      %h1 
+        W pliku wykryto próbe wczytania złego typu odczytów
+
+      %ul
+        - @new_ppes[:wrong].each do |ppe|
+          %li= ppe
 
     .text-right
       = link_to "Anuluj", ppes_path, class: 'btn btn-flat btn-danger'

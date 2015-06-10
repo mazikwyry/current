@@ -16,23 +16,36 @@
         %th 
           %h3 Zużycie(kWh)
         %td
-          %h3= @usages[:usage].round(0)
+          %h3= @usages[:total_usage].round(0)
       %tr
-        %th Status pomiarów
-        %td= @usages[:state]
+        %th Status wyliczenia
+        %td= @usages[:total_state]
 
 .panel.panel-default
   .panel-body
-    %h1 Odczyty użyte do obliczeń
-    %table.table.table-striped.table-hover
-      %tr
-        %th Data
-        %th Suma(kWh)
-        %th Status
-      - @usages[:usages].each do |u|
+    - @usages[:area_usage].each do |k, v|
+      %h1 Strefa #{k}
+      %table.table.table-striped.table-hover
         %tr
-          %td= u.date
-          %td= u.usage.round(0)
-          %td= u.state
+          %th 
+            %h3 Zużycie(kWh)
+          %td
+            %h3= v[:usage].round(0)
+        %tr
+          %th Status wylicznia
+          %td= v[:state]
+        %tr
+          %th Odczyty użyte do obliczeń
+          %td
+            %table.table.table-striped.table-hover
+              %tr
+                %th Data
+                %th Suma(kWh)
+                %th Status
+              - v[:usages].each do |u|
+                %tr
+                  %td= u.date
+                  %td= u.usage.round(0)
+                  %td= u.state
 
 = render 'ppes/export_csv_button'

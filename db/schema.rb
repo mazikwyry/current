@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150608213049) do
     t.string   "usage_type"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.text     "area",       default: ["1"],              array: true
+    t.text     "areas",      default: ["1"],              array: true
   end
 
 end

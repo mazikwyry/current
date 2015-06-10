@@ -6,12 +6,12 @@ class Ppe < ActiveRecord::Base
   has_many :hourly_current_usages, dependent: :delete_all
   has_many :area_current_usages, dependent: :delete_all
 
-  def usages area=1
-    usage_type == 'hourly' ? hourly_current_usages.order('date ASC') : area_current_usages.where(area: area).order('date ASC')
+  def usages area=nil
+    usage_type == 'hourly' ? hourly_current_usages.order('date ASC') : (area ? area_current_usages.where(area: area).order('date ASC') : area_current_usages.order('date ASC'))
   end
 
   def check_areas
-    update_attribute(:areas, self.usages.map{|u| u.area}.uniq)
+    self.update_attribute(:areas, self.usages.map{|u| u.area}.uniq)
   end
 
   def self.parse_usages json
@@ -34,14 +34,16 @@ class Ppe < ActiveRecord::Base
   def self.new_ppes content
     usages = JSON.parse(content)
     new_ppes = []
+    wrong_type = []
     usages.each do |u|
       new_ppes << u['ppe'] unless Ppe.exists?(code: u['ppe'])
+      wrong_type << u['ppe'] if Ppe.exists?(code: u['ppe'], usage_type: u['type']=='area' ? 'hourly' : 'area')
     end
-    new_ppes.present? ? new_ppes.uniq : false
+    (new_ppes.present? || wrong_type.present?) ? {new: new_ppes.uniq, wrong: wrong_type.uniq}  : false
   end
 
   def get_usage start_date, end_date
-    return [false, "Data początkowa powinna być wcześniejsza niż końcowa"] if start_date >= end_date
+    return {errors: ["Data początkowa powinna być wcześniejsza niż końcowa"]} if start_date >= end_date
     case usage_type
     when 'hourly'
       #Get usages from rande and sum
@@ -58,15 +60,23 @@ class Ppe < ActiveRecord::Base
       states << '-' if dates_without_usage.present?
       states = states.uniq.join(',')
 
-      return {usages: range_usages, sum: sum, states: states, start_date: start_date, end_date: end_date, dates_without_usage: dates_without_usage}
+      return {
+        usages: range_usages, 
+        sum: sum, 
+        states: states, 
+        start_date: start_date, 
+        end_date: end_date, 
+        dates_without_usage: dates_without_usage
+      }
+
     when 'area'
       area_usage = {}
       errors = []
-      areas.each |a|
-        errors << "Niewystarczająca ilość odczytów dla PPE #{code} dla strefy #{a}" and break if usages(a).count <= 1
+      areas.each do |a|
+        errors << "Niewystarczająca ilość odczytów dla PPE #{code} dla strefy #{a}" and next if usages(a).count <= 1
 
-        start_date = Date.parse start_date
-        end_date = Date.parse end_date
+        start_date = (start_date.is_a?(Date) && start_date) || Date.parse(start_date)
+        end_date = (end_date.is_a?(Date) && end_date) || Date.parse(end_date)
 
         first_reading, second_reading = self.usages(a).limit(2)
         last_reading, prelast_reading = self.area_current_usages.where(area: a).order('date DESC').limit(2)
@@ -124,10 +134,10 @@ class Ppe < ActiveRecord::Base
       end
       return {
         area_usage: area_usage,
-        total_usage: area_usage.inject(0){|sum, n| sum + n[:usage]}
-        total_state: area_usage.map{|au| au.state}.uniq
+        total_usage: area_usage.inject(0){|sum, n| sum + n[1][:usage]},
+        total_state: area_usage.map{|au| au[1][:state]}.uniq.join(','),
         start_date: start_date, 
-        end_date: end_date
+        end_date: end_date,
         errors: errors
       }
     end
@@ -139,8 +149,8 @@ class Ppe < ActiveRecord::Base
       when 'hourly'
         [self.code, start_date.to_s, end_date.to_s, usage[:sum].round(3).to_s, usage[:states].to_s]  
       when 'area'
-        return errors if errors.present?
-        [self.code, start_date.to_s, end_date.to_s, usage[:total_usage].round(3).to_s, usage[:total_state].to_s, usage[:area_usage].keys.to_s, usage[:area_usage].first[1].date] 
+        return [self.code, start_date.to_s, end_date.to_s, 'BŁĄD: '+usage[:errors].join(',')] if usage[:errors].present?
+        [self.code, start_date.to_s, end_date.to_s, usage[:total_usage].round(3).to_s, usage[:total_state].to_s, usage[:area_usage].keys.join(',').to_s, usage[:area_usage].first[1][:usages][1].date ]
     end
   end
 

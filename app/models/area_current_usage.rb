@@ -9,7 +9,7 @@ class AreaCurrentUsage < ActiveRecord::Base
 		usage = find_or_initialize_by(ppe_id: ppe.id, date: reading['date'], area: reading['area'])
 		usage.assign_attributes(usage: reading['usage'], state: reading['state'], multiplicand: reading['multiplicand'])
 		usage.save
-		usage.check_areas
+		ppe.check_areas
 		usage
 	end
 	
