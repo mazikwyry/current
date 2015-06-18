@@ -4,7 +4,7 @@ lock '3.4.0'
 set :application, 'CurrentApp'
 set :repo_url, 'git@github.com:mazikwyry/current.git'
 set :deploy_via, :remote_cache
-set :branch, 'origin/production'
+set :branch, 'production'
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'

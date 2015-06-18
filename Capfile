@@ -5,6 +5,8 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 
 require 'capistrano/rails'
+require 'capistrano/bundler'
+require 'capistrano/rvm'
 
 require 'capistrano/puma'
 require 'capistrano/puma/nginx'   # if you want to upload a nginx site template
