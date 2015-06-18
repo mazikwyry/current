@@ -46,6 +46,10 @@ gem 'annotate', '~> 2.6.5'
 gem 'activerecord_json_validator'
 gem 'puma'
 
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano3-puma'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
   gem 'rails-assets-bootstrap-material-design'
