@@ -11,6 +11,8 @@ require 'capistrano/rvm'
 require 'capistrano/puma'
 require 'capistrano/puma/nginx'   # if you want to upload a nginx site template
 
+require 'capistrano/postgresql'
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:
