@@ -50,6 +50,7 @@ gem 'capistrano'
 gem 'capistrano-rails'
 gem 'capistrano3-puma'
 gem 'capistrano-rvm'
+gem 'capistrano-postgresql'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'
