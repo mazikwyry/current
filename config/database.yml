@@ -26,3 +26,4 @@ production:
   <<: *default
   database: current_production
   username: postgres
+  password: CurrentApp543!
