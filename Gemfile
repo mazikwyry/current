@@ -51,6 +51,7 @@ gem 'capistrano-rails'
 gem 'capistrano3-puma'
 gem 'capistrano-rvm'
 gem 'capistrano-postgresql'
+gem 'sshkit-sudo'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-sass'

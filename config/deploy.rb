@@ -18,13 +18,13 @@ set :branch, 'production'
 set :rails_env, 'production'                  # If the environment differs from the stage name
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
 set :puma_threads,    [4, 16]
 set :puma_workers,    2
 
 set :user, "webmaster"
-
+set :pty, true
 
 namespace :deploy do
 
