@@ -62,6 +62,16 @@ class PpesController < ApplicationController
     end
 	end
 
+	def daily_csv_all
+		@ppes = Ppe.all
+		redirect_to ppes_path, alert: "Wprowadź wszytkie potrzebne atrybuty dla raportu" and return unless usage_params[:start_date] && usage_params[:end_date]
+		redirect_to ppes_path, alert: "Data początkowa powinna być wcześniejsza niż końcowa" and return if usage_params[:start_date] >= usage_params[:end_date]
+		csv = Ppe.hourly_report(usage_params[:start_date], usage_params[:end_date])
+    respond_to do |format|
+      format.csv { send_data csv, filename: "godzinowe_sumaryczne_#{usage_params[:start_date].to_s}-#{usage_params[:end_date].to_s}.csv" }
+    end
+	end
+
 	def change_hour_state
 		@usage = HourlyCurrentUsage.find(params[:usage_id])
 		render 'ajax_error' and return unless @usage

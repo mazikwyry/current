@@ -13,6 +13,8 @@ require 'capistrano/puma/nginx'   # if you want to upload a nginx site template
 
 require 'capistrano/postgresql'
 
+require 'sshkit/sudo'
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:

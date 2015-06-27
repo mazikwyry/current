@@ -164,4 +164,29 @@ class Ppe < ActiveRecord::Base
     end
   end 
 
+  def self.sum_daily_hourly_usages date, ppes
+    sum_row = [date]
+    (0..24).each do |h|
+      sum_row << HourlyCurrentUsage.where(date: date).sum("CAST(hourly_usage -> '#{h}' ->> 'usage' AS DECIMAL)")
+    end
+    sum_row
+  end
+
+  def self.hourly_report start_date, end_date
+    hourly_ppes = Ppe.where(usage_type: 'hourly')
+    CSV.generate do |csv|
+      csv << %w[Data 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24]
+      (Date.parse(start_date)..Date.parse(end_date)).each do |date|
+        csv << Ppe.sum_daily_hourly_usages(date, hourly_ppes)
+      end
+
+      sum = 0
+      Ppe.where(usage_type: 'area').each do |ppe|
+        usage = ppe.get_usage(start_date, end_date)
+        sum += usage[:total_usage] if usage[:errors].blank?
+      end
+      csv << ['Strefowe', sum]
+    end
+  end 
+
 end

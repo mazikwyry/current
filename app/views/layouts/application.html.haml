@@ -44,6 +44,8 @@
               %a{"data-toggle" => "tab", :href => "#home"} Raport dla PPE
             %li
               %a{"data-toggle" => "tab", :href => "#profile"} Raport CSV zbiorczy
+            %li
+              %a{"data-toggle" => "tab", :href => "#daily"} Sumaryczne dzienne
           #myTabContent.tab-content
             #home.tab-pane.fade.active.in
               = form_for Ppe.new, url: '/ppes/usage' do |f|
@@ -69,6 +71,23 @@
                       .ripple-wrapper
             #profile.tab-pane.fade
               = form_for Ppe.new, url: '/ppes/usages_csv_all.csv' do |f|
+                .row
+                  .col-lg-5
+                    .form-group
+                      %label.col-lg-4.control-label Początek
+                      .col-lg-8
+                        = f.text_field :start_date, class: 'form-control', placeholder: "Data początkowa", id: 'start_date'
+                  .col-lg-5
+                    .form-group
+                      %label.col-lg-4.control-label Koniec
+                      .col-lg-8
+                        = f.text_field :end_date, class: 'form-control', placeholder: "Data końcowa", id: 'end_date'
+                  .col-lg-2
+                    %button.btn.btn-primary{:type => "submit"}
+                      Eksport CSV
+                      .ripple-wrapper 
+            #daily.tab-pane.fade
+              = form_for Ppe.new, url: '/ppes/daily_csv_all.csv' do |f|
                 .row
                   .col-lg-5
                     .form-group

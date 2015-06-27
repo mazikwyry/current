@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         get :confirm_new_ppes
         post :usage
         post :usages_csv_all
+        post :daily_csv_all
         get :change_hour_state
         get :change_daily_state
         delete :destroy
