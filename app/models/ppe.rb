@@ -43,7 +43,7 @@ class Ppe < ActiveRecord::Base
   end
 
   def get_usage start_date, end_date
-    return {errors: ["Data początkowa powinna być wcześniejsza niż końcowa"]} if start_date >= end_date
+    return {errors: ["Data początkowa powinna być wcześniejsza niż końcowa"]} if start_date > end_date
     case usage_type
     when 'hourly'
       #Get usages from rande and sum
@@ -89,34 +89,59 @@ class Ppe < ActiveRecord::Base
         finish_reading = last_reading if last_reading.date <= end_date
 
         unless start_reading
-          start_date_neighbors = [
-            self.usages.where("date >= :start_date and area = :area", :area => a, :start_date => start_date).limit(1).first, 
-            self.area_current_usages.where("date <= :start_date and area = :area", :area => a, :start_date => start_date).order('date DESC').limit(1).first
-          ]
-          days_differences_start = start_date_neighbors.map{|r| (r.date && (start_date - r.date).to_i.abs) || 99999}
-          start_reading_index = days_differences_start.each_with_index.min.last
-          start_reading = start_date_neighbors[start_reading_index]
+          start_reading = self.area_current_usages
+                              .where("date <= :start_date and area = :area", 
+                                      :area => a, 
+                                      :start_date => start_date
+                                    )
+                              .order('date DESC')
+                              .limit(1)
+                              .first
         end
         unless finish_reading
-          end_date_neighbors = [
-            self.usages.where("date >= :end_date and area = :area", :area => a, :end_date => end_date).limit(1).first, 
-            self.area_current_usages.where("date <= :end_date and area = :area", :area => a, :end_date => end_date).order('date DESC').limit(1).first
-          ]
-          days_differences_finish = end_date_neighbors.map{|r| (r.date && (end_date - r.date).to_i.abs) || 99999}
-          finish_reading_index = days_differences_finish.each_with_index.min.last
-          finish_reading = end_date_neighbors[finish_reading_index]
+          finish_reading = self.usages.where("date >= :end_date and area = :area", 
+                                              :area => a, 
+                                              :end_date => end_date)
+                                      .limit(1)
+                                      .first
         end
-        if start_reading == finish_reading
-          alt_start_reading = start_date_neighbors[start_reading_index == 0 ? 1 : 0] if start_date_neighbors.present?
-          alt_finish_reading = end_date_neighbors[finish_reading_index == 0 ? 1 : 0] if end_date_neighbors.present?
-          if alt_start_reading && (alt_finish_reading.nil? || ((start_date - alt_start_reading.date).to_i.abs <= (end_date - alt_finish_reading.date).to_i.abs))
-            start_reading = alt_start_reading
-          elsif alt_finish_reading
-            finish_reading = alt_finish_reading
+
+
+        mid_readings = self.area_current_usages
+                              .where("date BETWEEN :start_date AND :end_date AND area = :area", 
+                                      :area => a, 
+                                      :start_date => start_date,
+                                      :end_date => end_date
+                                    )
+                              .order('date DESC')
+        
+        all_readings = [start_reading, mid_readings, finish_reading].flatten.uniq.sort_by{|a| a.date}
+
+        if(all_readings.length <= 2)
+          daily_usage = (all_readings[1].usage - all_readings[0].usage)/(all_readings[0].date..all_readings[1].date).count
+          usage = daily_usage*((start_date..end_date).count)
+        else
+          usage = 0
+          (0..(all_readings.length-2)).each do |i|
+            date_range = all_readings[i].date..all_readings[i+1].date
+            daily_usage = (all_readings[i+1].usage - all_readings[i].usage)/(date_range).count
+            # binding.pry
+            if(i==0 && start_date < all_readings[i].date)
+              usage += (start_date..all_readings[i].date).count*daily_usage
+            elsif(i==(all_readings.length-2) && end_date > all_readings[i+1].date)
+              usage += (all_readings[i+1].date..end_date).count*daily_usage
+            end
+
+            if date_range.cover?(start_date)
+              usage += (start_date..all_readings[i+1].date).count*daily_usage
+            elsif date_range.cover?(end_date)
+              usage += (all_readings[i].date..end_date).count*daily_usage
+            else
+              usage += (all_readings[i+1].usage - all_readings[i].usage)
+            end
+
           end
         end
-        usage = (finish_reading.usage - start_reading.usage)/(start_reading.date..finish_reading.date).count*(start_date..end_date).count
-        
         usage_date_range = (start_reading.date..finish_reading.date)
         state = case 
         when start_date>=start_reading.date && end_date<=finish_reading.date
@@ -164,28 +189,28 @@ class Ppe < ActiveRecord::Base
     end
   end 
 
-  def self.sum_daily_hourly_usages date, ppes
+  def self.sum_daily_hourly_usages date, area_ppes
     sum_row = [date]
     (0..24).each do |h|
-      sum_row << HourlyCurrentUsage.where(date: date).sum("CAST(hourly_usage -> '#{h}' ->> 'usage' AS DECIMAL)")
+      hourly = HourlyCurrentUsage.where(date: date).sum("CAST(hourly_usage -> '#{h}' ->> 'usage' AS DECIMAL)")
+      area_usage = 0
+      unless h==24
+        area_ppes.each do |a|
+          area_usage += (a.get_usage(date,date)[:total_usage]/24).round(3)
+        end        
+      end
+      sum_row << hourly + area_usage
     end
     sum_row
   end
 
   def self.hourly_report start_date, end_date
-    hourly_ppes = Ppe.where(usage_type: 'hourly')
+    area_ppes = Ppe.where(usage_type: 'area')
     CSV.generate do |csv|
       csv << %w[Data 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24]
       (Date.parse(start_date)..Date.parse(end_date)).each do |date|
-        csv << Ppe.sum_daily_hourly_usages(date, hourly_ppes)
+        csv << Ppe.sum_daily_hourly_usages(date, area_ppes)
       end
-
-      sum = 0
-      Ppe.where(usage_type: 'area').each do |ppe|
-        usage = ppe.get_usage(start_date, end_date)
-        sum += usage[:total_usage] if usage[:errors].blank?
-      end
-      csv << ['Strefowe', sum]
     end
   end 
 

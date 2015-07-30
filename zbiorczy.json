@@ -1,7 +1,6 @@
-[
-{
+[{
 	"type": "hourly",
-	"ppe": "TEST_DUPLIKATY_DNI",
+	"ppe": "123456789",
 	"date": "2015-02-20",
 	"hourlyUsage": {
 		"0":{
@@ -107,342 +106,84 @@
 	}
 },
 {
-	"type": "hourly",
-	"ppe": "TEST_DUPLIKATY_DNI",
+	"type": "area",
+	"ppe": "TEST",
 	"date": "2015-02-20",
-	"hourlyUsage": {
-		"0":{
-			"usage": 124.123,
-			"state": "+"
-		},
-		"1":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"2":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"3":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"4":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"5":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"6":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"7":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"8":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"9":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"10":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"11":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"12":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"13":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"14":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"15":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"16":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"17":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"18":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"19":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"20":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"21":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"22":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"23":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"24":{
-			"usage": 123.123,
-			"state": "+"
-		}
-	}
+	"usage": 100,
+	"state": "R",
+	"multiplicand": 1,
+	"area": 2
+},
+{
+	"type": "area",
+	"ppe": "TEST",
+	"date": "2015-03-20",
+	"usage": 200,
+	"state": "S",
+	"multiplicand": 1,
+	"area": 2
+},
+{
+	"type": "area",
+	"ppe": "TEST",
+	"date": "2015-04-20",
+	"usage": 400,
+	"state": "S",
+	"multiplicand": 1,
+	"area": 2
+},
+{
+	"type": "area",
+	"ppe": "TEST",
+	"date": "2015-05-20",
+	"usage": 700,
+	"state": "S",
+	"multiplicand": 1,
+	"area": 2
+},
+{
+	"type": "area",
+	"ppe": "16fghhfgh65",
+	"date": "2015-02-20",
+	"usage": 156.245,
+	"state": "R",
+	"multiplicand": 1,
+	"area": 1
+},
+{
+	"type": "area",
+	"ppe": "16fghhfgh65",
+	"date": "2015-03-20",
+	"usage": 200,
+	"state": "R",
+	"multiplicand": 1,
+	"area": 1
+},
+{
+	"type": "area",
+	"ppe": "16fghhfgh65",
+	"date": "2015-05-20",
+	"usage": 300,
+	"state": "R",
+	"multiplicand": 1,
+	"area": 1
 },
 {
 	"type": "hourly",
-	"ppe": "TEST_DUPLIKATY_DNI",
-	"date": "2015-02-20",
-	"hourlyUsage": {
-		"0":{
-			"usage": 124.123,
-			"state": "+"
-		},
-		"1":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"2":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"3":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"4":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"5":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"6":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"7":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"8":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"9":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"10":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"11":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"12":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"13":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"14":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"15":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"16":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"17":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"18":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"19":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"20":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"21":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"22":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"23":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"24":{
-			"usage": 123.123,
-			"state": "+"
-		}
-	}
-},
-{
-	"type": "hourly",
-	"ppe": "TEST_DUPLIKATY_DNI",
-	"date": "2015-02-20",
-	"hourlyUsage": {
-		"0":{
-			"usage": 124.123,
-			"state": "+"
-		},
-		"1":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"2":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"3":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"4":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"5":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"6":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"7":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"8":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"9":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"10":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"11":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"12":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"13":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"14":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"15":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"16":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"17":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"18":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"19":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"20":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"21":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"22":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"23":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"24":{
-			"usage": 123.123,
-			"state": "+"
-		}
-	}
-},
-{
-	"type": "hourly",
-	"ppe": "TEST_DUPLIKATY_DNI",
+	"ppe": "123456789",
 	"date": "2015-02-21",
 	"hourlyUsage": {
 		"0":{
-			"usage": 124.123,
+			"usage": 123.123,
 			"state": "+"
 		},
 		"1":{
 			"usage": 123.123,
-			"state": "+"
+			"state": "*"
 		},
 		"2":{
 			"usage": 123.123,
-			"state": "+"
+			"state": "-"
 		},
 		"3":{
 			"usage": 123.123,
@@ -533,219 +274,4 @@
 			"state": "+"
 		}
 	}
-},
-{
-	"type": "hourly",
-	"ppe": "TEST_DUPLIKATY_DNI",
-	"date": "2015-02-21",
-	"hourlyUsage": {
-		"0":{
-			"usage": 124.123,
-			"state": "+"
-		},
-		"1":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"2":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"3":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"4":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"5":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"6":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"7":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"8":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"9":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"10":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"11":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"12":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"13":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"14":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"15":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"16":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"17":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"18":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"19":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"20":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"21":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"22":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"23":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"24":{
-			"usage": 123.123,
-			"state": "+"
-		}
-	}
-},
-{
-	"type": "hourly",
-	"ppe": "TEST_DUPLIKATY_DNI",
-	"date": "2015-02-20",
-	"hourlyUsage": {
-		"0":{
-			"usage": 125.123,
-			"state": "+"
-		},
-		"1":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"2":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"3":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"4":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"5":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"6":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"7":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"8":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"9":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"10":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"11":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"12":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"13":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"14":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"15":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"16":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"17":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"18":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"19":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"20":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"21":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"22":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"23":{
-			"usage": 123.123,
-			"state": "+"
-		},
-		"24":{
-			"usage": 125.123,
-			"state": "+"
-		}
-	}
-}
-]
+}]
