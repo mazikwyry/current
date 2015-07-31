@@ -203,13 +203,15 @@ class Ppe < ActiveRecord::Base
 
   def self.sum_daily_hourly_usages date, area_ppes
     sum_row = [date]
+    area_per_hour = 0
+    area_ppes.each do |a|
+      area_per_hour += (a.get_usage(date,date)[:total_usage]/24).round(3)
+    end      
     (0..24).each do |h|
       hourly = HourlyCurrentUsage.where(date: date).sum("CAST(hourly_usage -> '#{h}' ->> 'usage' AS DECIMAL)")
       area_usage = 0
       unless h==24
-        area_ppes.each do |a|
-          area_usage += (a.get_usage(date,date)[:total_usage]/24).round(3)
-        end        
+        area_usage += area_per_hour       
       end
       sum_row << hourly + area_usage
     end
