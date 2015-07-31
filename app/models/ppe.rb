@@ -88,15 +88,27 @@ class Ppe < ActiveRecord::Base
         start_reading = prelast_reading if last_reading.date <= start_date
         finish_reading = last_reading if last_reading.date <= end_date
 
+
         unless start_reading
-          start_reading = self.area_current_usages
-                              .where("date <= :start_date and area = :area", 
-                                      :area => a, 
-                                      :start_date => start_date
-                                    )
-                              .order('date DESC')
-                              .limit(1)
-                              .first
+          if start_date == end_date
+            start_reading = self.area_current_usages
+                                .where("date < :start_date and area = :area", 
+                                        :area => a, 
+                                        :start_date => start_date
+                                      )
+                                .order('date DESC')
+                                .limit(1)
+                                .first
+          else
+            start_reading = self.area_current_usages
+                                .where("date <= :start_date and area = :area", 
+                                        :area => a, 
+                                        :start_date => start_date
+                                      )
+                                .order('date DESC')
+                                .limit(1)
+                                .first
+          end
         end
         unless finish_reading
           finish_reading = self.usages.where("date >= :end_date and area = :area", 
@@ -116,8 +128,6 @@ class Ppe < ActiveRecord::Base
                               .order('date DESC')
         
         all_readings = [start_reading, mid_readings, finish_reading].flatten.uniq.sort_by{|a| a.date}
-
-        puts "#{all_readings.count} - #{id}"
 
         if(all_readings.length <= 2)
           daily_usage = (all_readings[1].usage - all_readings[0].usage)/(all_readings[0].date..all_readings[1].date).count
