@@ -117,6 +117,8 @@ class Ppe < ActiveRecord::Base
         
         all_readings = [start_reading, mid_readings, finish_reading].flatten.uniq.sort_by{|a| a.date}
 
+        puts "#{all_readings.count} - #{id}"
+
         if(all_readings.length <= 2)
           daily_usage = (all_readings[1].usage - all_readings[0].usage)/(all_readings[0].date..all_readings[1].date).count
           usage = daily_usage*((start_date..end_date).count)
