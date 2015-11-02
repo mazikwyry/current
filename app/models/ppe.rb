@@ -191,6 +191,15 @@ class Ppe < ActiveRecord::Base
     end
   end
 
+  def get_monthly_usage start_date, end_date
+    no_months = (end_date.year * 12 + end_date.month) - (start_date.year * 12 + start_date.month)
+    monthly_usages = []
+    no_months.times do |month|
+      monthly_usages << get_usage(start_date+month.months, end_date+(month+1).months)
+    end
+    monthly_usages
+  end
+
 
   def self.generate_csv ppes, start_date, end_date
     CSV.generate do |csv|
