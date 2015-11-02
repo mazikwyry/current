@@ -28,6 +28,16 @@ $(function() {
     autoclose:true,
     language: "pl"
 	});
+
+  $('#start_month, #end_month').datepicker({
+      format: "yyyy-mm",
+      startView: 1,
+      minViewMode: 1,
+      orientation: "top left",
+      autoclose:true,
+      language: "pl"
+  });
+
 	$('.selectpicker').selectpicker();
 	$('[data-toggle="tooltip"]').tooltip();
 });
