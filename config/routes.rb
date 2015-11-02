@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         post :usage
         post :usages_csv_all
         post :daily_csv_all
+        post :monthly_usage
         get :change_hour_state
         get :change_daily_state
         delete :destroy
