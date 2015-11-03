@@ -56,8 +56,6 @@ class PpesController < ApplicationController
     @ppe = Ppe.find(usage_params[:id])
     redirect_to ppes_path, alert: "Wprowadź wszytkie potrzebne atrybuty dla raportu" and return unless @ppe && usage_params[:start_date] && usage_params[:end_date]
     @usages = @ppe.get_monthly_usage(usage_params[:start_date], usage_params[:end_date])
-    # binding.pry
-    redirect_to ppes_path, alert: @usages[:errors].to_s and return if @usages[:errors].present?
   end
 
 	def usages_csv_all
