@@ -46,13 +46,16 @@ class Ppe < ActiveRecord::Base
     return {errors: ["Data początkowa powinna być wcześniejsza niż końcowa"]} if start_date > end_date
     case usage_type
     when 'hourly'
+
+      start_date = (start_date.is_a?(Date) && start_date) || Date.parse(start_date)
+      end_date = (end_date.is_a?(Date) && end_date) || Date.parse(end_date)
       #Get usages from rande and sum
       range_usages = self.usages.where("date >= :start_date AND date <= :end_date", :start_date => start_date, :end_date => end_date)
       sum = range_usages.sum(:daily_usage)
       
       #Get dates without usage
       usages_dates = range_usages.map{|u| u.date}
-      date_range = (Date.parse(start_date)..Date.parse(end_date))
+      date_range = (start_date..end_date)
       dates_without_usage = date_range.to_a - usages_dates
 
       #Sum states and add "-"" if there are empty days 
