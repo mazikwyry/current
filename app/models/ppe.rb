@@ -46,13 +46,16 @@ class Ppe < ActiveRecord::Base
     return {errors: ["Data początkowa powinna być wcześniejsza niż końcowa"]} if start_date > end_date
     case usage_type
     when 'hourly'
+
+      start_date = (start_date.is_a?(Date) && start_date) || Date.parse(start_date)
+      end_date = (end_date.is_a?(Date) && end_date) || Date.parse(end_date)
       #Get usages from rande and sum
       range_usages = self.usages.where("date >= :start_date AND date <= :end_date", :start_date => start_date, :end_date => end_date)
       sum = range_usages.sum(:daily_usage)
       
       #Get dates without usage
       usages_dates = range_usages.map{|u| u.date}
-      date_range = (Date.parse(start_date)..Date.parse(end_date))
+      date_range = (start_date..end_date)
       dates_without_usage = date_range.to_a - usages_dates
 
       #Sum states and add "-"" if there are empty days 
@@ -192,10 +195,12 @@ class Ppe < ActiveRecord::Base
   end
 
   def get_monthly_usage start_date, end_date
+    end_date = Date.parse(end_date+'-01').end_of_month
+    start_date = Date.parse(start_date+'-01')
     no_months = (end_date.year * 12 + end_date.month) - (start_date.year * 12 + start_date.month)
-    monthly_usages = []
-    no_months.times do |month|
-      monthly_usages << get_usage(start_date+month.months, end_date+(month+1).months)
+    monthly_usages = {}
+    (no_months+1).times do |month|
+      monthly_usages[("m"+month.to_s).to_sym] = get_usage(start_date+month.months, (start_date+(month+1).months-1.day))
     end
     monthly_usages
   end

@@ -1,2 +1,2 @@
-- @usages.each do |monthly_usage|
+- @usages.each do |k, monthly_usage|
   = render "ppes/#{@ppe.usage_type}_report_summary", {ppe: @ppe, usages: monthly_usage}
