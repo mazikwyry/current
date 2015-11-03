@@ -186,9 +186,9 @@ class Ppe < ActiveRecord::Base
     end_date = Date.parse(end_date+'-01').end_of_month
     start_date = Date.parse(start_date+'-01')
     no_months = (end_date.year * 12 + end_date.month) - (start_date.year * 12 + start_date.month)
-    monthly_usages = []
+    monthly_usages = {}
     no_months.times do |month|
-      monthly_usages << get_usage(start_date+month.months, end_date+(month+1).months)
+      monthly_usages[month.to_sym] = get_usage(start_date+month.months, end_date+(month+1).months)
     end
     monthly_usages
   end
