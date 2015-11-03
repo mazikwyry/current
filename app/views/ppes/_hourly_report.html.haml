@@ -1,39 +1,4 @@
-.panel.panel-default
-  .panel-body
-    %h1 Sumaryczne zużycie
-    
-    %table.table.table-striped.table-hover
-      %tr
-        %th PPE
-        %td= @ppe.code
-      %tr
-        %th Data początkowa
-        %td= @usages[:start_date]
-      %tr
-        %th Data końcowa
-        %td= @usages[:end_date]
-      %tr.success
-        %th 
-          %h3 Zużycie(kWh)
-        %td
-          %h3= @usages[:sum].round(3)
-      %tr
-        %th Status pomiarów
-        %td
-          %span{class: "label #{@usages[:states]=='+' ? 'label-success' : 'label-warning'}"}
-            = @usages[:states]
-      %tr
-        %th Brakujące dni
-        %td
-          -if @usages[:dates_without_usage].present?
-            Brakuje odczytów z następujących dni: 
-            %br
-            -@usages[:dates_without_usage].each do |d|
-              %span.label.label-warning
-                = d
-          -else
-            %span.label.label-success
-              Wszystkie odczyty
+= render 'ppes/hourly_report_summary', { ppe: @ppe, usages: @usages }
 
 .panel.panel-default
   .panel-body
